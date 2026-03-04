@@ -16,7 +16,7 @@ except ImportError:
     print("✗ Or install just it: python -m pip install flask-cors")
     import sys
     sys.exit(1)
-from pymongo import MongoClient
+# from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import datetime
@@ -76,17 +76,20 @@ def _make_json_serializable(obj):
 
 
 # ==================== MONGODB CONNECTION ====================
-MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017/')
-try:
-    client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
-    client.admin.command('ping')
-    db = client['objectify_db']
-    users_collection = db['users']
-    print("✓ MongoDB connected successfully")
-except Exception as e:
-    print(f"✗ MongoDB connection failed: {e}")
-    db = None
-    users_collection = None
+# MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017/')
+# try:
+#     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+#     client.admin.command('ping')
+#     db = client['objectify_db']
+#     users_collection = db['users']
+#     print("✓ MongoDB connected successfully")
+# except Exception as e:
+#     print(f"✗ MongoDB connection failed: {e}")
+#     db = None
+#     users_collection = None
+db = None
+users_collection = None
+print("MongoDB disabled in deployment")
 
 # ==================== JWT DECORATOR ====================
 def token_required(f):
